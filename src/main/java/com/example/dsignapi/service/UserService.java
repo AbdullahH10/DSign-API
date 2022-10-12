@@ -1,6 +1,7 @@
 package com.example.dsignapi.service;
 
 import com.example.dsignapi.entity.User;
+import com.example.dsignapi.entity.dtos.LoginDTO;
 import com.example.dsignapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,11 @@ public class UserService {
         return (User) repository.findById(userId).orElse(null);
     }
 
+//    public User getUserByEmail(String Email, User user){
+//        return repository.findByEmail(Email);
+//    }
+
+
 //    public User updateUser(int userId){
 //        return (User) repository.findById(userId).orElse(null);
 //    }
@@ -30,6 +36,10 @@ public class UserService {
     public String deleteUser(int userId){
         repository.deleteById(userId);
         return "user removed ||"+userId;
+    }
+    public User deleteAll() {
+        repository.deleteAll();
+        return null;
     }
 
     public User updateUser(Integer userId, User user){
@@ -50,4 +60,19 @@ public class UserService {
     public User updateUserById(String userId) {
         return null;
     }
+
+
+    public User loginUser(LoginDTO loginDTO) {
+        User user = repository.findByEmail(loginDTO.getEmail());
+        if(user==null) {
+            throw  new RuntimeException("User not found");
+        }
+        if(user.getPassword().equals(loginDTO.getPassword())) {
+            return user;
+        }
+        else {
+            throw new RuntimeException("invalid password!");
+        }
+    }
+
 }

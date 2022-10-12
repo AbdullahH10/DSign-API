@@ -2,13 +2,10 @@ package com.example.dsignapi.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -44,11 +41,11 @@ public class User {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getPassword() {
@@ -101,7 +98,8 @@ public class User {
 
     private String Firstname;
     private String Lastname;
-    private String Email;
+    @Column(name = "email",unique = true)
+    private String email;
     private String Password;
     private int PhoneNo;
     private String Organization;
