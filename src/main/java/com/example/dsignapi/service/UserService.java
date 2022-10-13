@@ -6,6 +6,7 @@ import com.example.dsignapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.ServletOutputStream;
 import java.util.List;
 
 @Service
@@ -65,13 +66,17 @@ public class UserService {
     public User loginUser(LoginDTO loginDTO) {
         User user = repository.findByEmail(loginDTO.getEmail());
         if(user==null) {
-            throw  new RuntimeException("User not found");
+//            throw  new RuntimeException("User not found");
+            System.out.print("user not found!");
+            return null;
         }
         if(user.getPassword().equals(loginDTO.getPassword())) {
             return user;
         }
         else {
-            throw new RuntimeException("invalid password!");
+//            throw new RuntimeException("invalid password!");
+            System.out.print("invalid password!");
+            return null;
         }
     }
 
