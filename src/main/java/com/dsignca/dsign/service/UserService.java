@@ -1,6 +1,7 @@
 package com.dsignca.dsign.service;
 
-import com.dsignca.dsign.entity.User;
+import com.dsignca.dsign.entity.CAUser.User;
+import com.dsignca.dsign.entity.CAUser.dtos.LoginDTO;
 import com.dsignca.dsign.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,21 @@ public class UserService {
         existinguser.setProfileImageLocation(user.getProfileImageLocation());
         existinguser.setSignImageLocation(user.getSignImageLocation());
         return repository.save(existinguser);
+    }
+
+    public User LoginUser(LoginDTO loginDTO){
+        User user =repository.findByEmail(loginDTO.getEmail());
+        if(user==null){
+            System.out.print("user not found");
+            return null;
+        }
+        if(user.getPassword().equals(loginDTO.getPassword())){
+            return user;
+        }
+        else{
+            System.out.print("Invalid Password");
+            return null;
+        }
+
     }
 }
