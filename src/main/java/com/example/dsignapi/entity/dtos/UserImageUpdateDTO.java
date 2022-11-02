@@ -7,7 +7,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserUpdateDTO {
-    private String id;
+public class UserImageUpdateDTO {
+//    private String id;
+
+    private int Userid;
+    private String ProfileImageLocation;
+    private String SignatureImageLocation;
+
+
     //private String
 }
