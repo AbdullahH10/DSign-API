@@ -43,7 +43,7 @@ public class FileData {
     private String documentLocation;
     private String workFlowName;
 
-    public String getFilePath() {
-        return documentLocation;
-    }
+//    public String getFilePath() {
+//        return documentLocation;
+//    }
 }

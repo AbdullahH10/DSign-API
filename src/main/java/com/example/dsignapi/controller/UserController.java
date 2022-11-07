@@ -45,33 +45,33 @@ public class UserController {
 //    }
 
     @PostMapping("/user/profileImage")
-    public ResponseEntity<?> uploadProfileImage(@RequestParam("image") MultipartFile file) throws IOException {
-        String uploadImage = service2.uploadImageToFileSystem(file);
+    public ResponseEntity<?> uploadProfileImage(@RequestParam("user") MultipartFile file) throws IOException {
+        String uploadImage = service2.uploadProfileImageToFileSystem(file);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(uploadImage);
     }
     @PostMapping("/user/signatureImage")
-    public ResponseEntity<?> uploadSignatureImage(@RequestParam("image") MultipartFile file) throws IOException {
-        String uploadImage = service2.uploadImageToFileSystem(file);
+    public ResponseEntity<?> uploadSignatureImage(@RequestParam("user") MultipartFile file) throws IOException {
+        String uploadImage = service2.uploadSignImageToFileSystem(file);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(uploadImage);
     }
 
-//    @GetMapping("/user/profileImageLocation/{userId}")
-//    public ResponseEntity<?> downloadProfileImage(@PathVariable int userId) throws IOException{
-//        byte[] imageData=service2.downloadImageFromFileSystem(userId);
-//        return ResponseEntity.status(HttpStatus.OK)
-//                .contentType(MediaType.valueOf("image/jpg"))
-//                .body(imageData);
-//    }
-//
-//    @GetMapping("/user/signatureImageLocation/{userId}")
-//    public ResponseEntity<?> downloadSignatureImage(@PathVariable int userId) throws IOException{
-//        byte[] imageData=service2.downloadImageFromFileSystem(filename);
-//        return ResponseEntity.status(HttpStatus.OK)
-//                .contentType(MediaType.valueOf("image/jpg"))
-//                .body(imageData);
-//    }
+    @GetMapping("/user/profileImageLocation/{UserId}")
+    public ResponseEntity<?> downloadProfileImage(@PathVariable String UserId) throws IOException{
+        byte[] imageData=service2.downloadProfileImageFromFileSystem(UserId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf("image/jpg"))
+                .body(imageData);
+    }
+
+    @GetMapping("/user/signatureImageLocation/{UserId}")
+    public ResponseEntity<?> downloadSignatureImage(@PathVariable String UserId) throws IOException{
+        byte[] imageDataTwo=service2.downloadSignImageFromFileSystem(UserId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf("image/jpg"))
+                .body(imageDataTwo);
+    }
 
     @GetMapping("/users")
     public List<User> findAllUsers(){
@@ -79,27 +79,27 @@ public class UserController {
    }
 
     @GetMapping("/user/{userId}")
-    public User findUserById(@PathVariable int userId){
+    public User findUserById(@PathVariable String userId){
         return service.getUserById(userId);
     }
 
     @GetMapping("/userProfileImage/{userId}")
-    public User findUseByProfileImage(@PathVariable int userId){
+    public User findUseByProfileImage(@PathVariable String userId){
         return service.getUserById(userId);
     }
 
     @GetMapping("/userSignatureImage/{userId}")
-    public User findUseBySignatureImage(@PathVariable int userId){
+    public User findUseBySignatureImage(@PathVariable String userId){
         return service.getUserById(userId);
     }
 
     @PutMapping("/update/{userId}")
-    public User updateUser(@PathVariable("userId") Integer userId,@RequestBody User user){
+    public User updateUser(@PathVariable("userId") String userId,@RequestBody User user){
         return service.updateUser(userId,user);
     }
     @DeleteMapping("/delete/{userId}")
-    public String deleteUser(@PathVariable int userId){
-        return service.deleteUser(userId);
+    public String deleteUser(@PathVariable String userId){
+        return service.deleteByUserId(userId);
     }
 
     @DeleteMapping("/deleteAll")
