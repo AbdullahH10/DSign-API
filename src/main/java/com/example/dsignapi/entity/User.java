@@ -1,26 +1,24 @@
 package com.example.dsignapi.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+@Getter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Table(name = "User_TBL")
+@Builder
 public class User {
-    @Id
-    @GeneratedValue
-    private int Userid;
 
-    public int getUserid() {
+    public String getUserid() {
         return Userid;
     }
 
-    public void setUserid(int userid) {
+    public void setUserid(String userid) {
         Userid = userid;
     }
 
@@ -96,6 +94,10 @@ public class User {
         SignatureImageLocation = signatureImageLocation;
     }
 
+    @Id
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    private String Userid;
     private String Firstname;
     private String Lastname;
     @Column(name = "email",unique = true)

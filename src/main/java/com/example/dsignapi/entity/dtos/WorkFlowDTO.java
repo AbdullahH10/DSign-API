@@ -1,15 +1,19 @@
 package com.example.dsignapi.entity.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
 @Setter
-public class LoginDTO {
+@NoArgsConstructor
+@AllArgsConstructor
+public class WorkFlowDTO {
 
-    private int Userid;
     private String email;
-    private String password;
+    private int wid;
+    private int wfId;
+
+
 }
