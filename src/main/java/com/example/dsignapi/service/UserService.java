@@ -22,8 +22,8 @@ public class UserService {
     public List<User> getUsers(){
         return repository.findAll();
     }
-    public User getUserById(int userId){
-        return (User) repository.findById(userId).orElse(null);
+    public User getUserById(String userId){
+        return (User) repository.findByUserId(userId).orElse(null);
     }
 
 //    public User getUserByEmail(String Email, User user){
@@ -35,8 +35,8 @@ public class UserService {
 //        return (User) repository.findById(userId).orElse(null);
 //    }
 
-    public String deleteUser(int userId){
-        repository.deleteById(userId);
+    public String deleteByUserId(String userId){
+        repository.deleteByuserId(userId);
         return "user removed ||"+userId;
     }
     public User deleteAll() {
@@ -44,10 +44,12 @@ public class UserService {
         return null;
     }
 
-    public User updateUser(Integer userId, User user){
-        User existingUser = repository.findById(userId).orElse(null);
-        existingUser.setFirstname(user.getFirstname());
-        existingUser.setLastname(user.getLastname());
+    public User updateUser(String userId, User user){
+        User existingUser = repository.findByUserId(userId).orElse(null);
+        existingUser.setFirstName(user.getFirstName());
+//        existingUser.setFirstname(user.getFirstname());
+        existingUser.setLastName(user.getLastName());
+//        existingUser.setLastname(user.getLastname());
         existingUser.setEmail(user.getEmail());
         existingUser.setPassword(user.getPassword());
         existingUser.setPhoneNo(user.getPhoneNo());
@@ -59,9 +61,9 @@ public class UserService {
     }
 
 
-    public User updateUserById(String userId) {
-        return null;
-    }
+//    public User updateUserById(String userId) {
+//        return null;
+//    }
 
 
     public User loginUser(LoginDTO loginDTO) {
@@ -81,33 +83,34 @@ public class UserService {
         }
     }
 
-    public Optional<User> updateUserImage(UserImageUpdateDTO userImageUpdateDTO) {
+//    public Optional<User> updateUserImage(UserImageUpdateDTO userImageUpdateDTO) {
+//
+//
+////        User user2 = repository.findByProfileImageLocation(userImageUpdateDTO.getUserid());
+//        Optional<User> user2 = repository.findById(userImageUpdateDTO.getUserid());
+//
+////        User user3 = repository.findBySignatureImageLocation(userImageUpdateDTO.getUserid());
+//        Optional<User> user3 = repository.findById(userImageUpdateDTO.getUserid());
+//
+//        if(user2==null) {
+////            throw  new RuntimeException("User not found");
+//            System.out.print("user not found!");
+//            return null;
+//        }
+//        else if (user2!=null){
+//            return user2;
+//        }
+//
+//        else if(user3==null) {
+////            throw  new RuntimeException("User not found");
+//            System.out.print("user not found!");
+//            return null;
+//        }
+//        else {
+//            return user3;
+//        }
+//
+//    }
 
-
-//        User user2 = repository.findByProfileImageLocation(userImageUpdateDTO.getUserid());
-        Optional<User> user2 = repository.findById(userImageUpdateDTO.getUserid());
-
-//        User user3 = repository.findBySignatureImageLocation(userImageUpdateDTO.getUserid());
-        Optional<User> user3 = repository.findById(userImageUpdateDTO.getUserid());
-
-        if(user2==null) {
-//            throw  new RuntimeException("User not found");
-            System.out.print("user not found!");
-            return null;
-        }
-        else if (user2!=null){
-            return user2;
-        }
-
-        else if(user3==null) {
-//            throw  new RuntimeException("User not found");
-            System.out.print("user not found!");
-            return null;
-        }
-        else {
-            return user3;
-        }
-
-    }
 
 }

@@ -23,6 +23,8 @@ public class StorageService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository2;
     private final String FOLDER_PATH = "F:/LoginWithJavaMail/Dsign-API/src/main/resources/static/files/";
 
 
@@ -44,36 +46,66 @@ public class StorageService {
 
     public byte[] downloadPdfFromFileSystem(String fileName) throws IOException{
         Optional<FileData> fileData = fileDataRepository.findByworkFlowName(fileName);
-        String filePath = fileData.get().getFilePath();
+        String filePath = fileData.get().getDocumentLocation();
         byte[] pdf = Files.readAllBytes(new File(filePath).toPath());
         return pdf;
     }
 
-    public String uploadImageToFileSystem(MultipartFile file) throws IOException{
+
+
+    public String uploadProfileImageToFileSystem(MultipartFile file) throws IOException{
 
         String filepath=FOLDER_PATH+file.getOriginalFilename();
 
         User userData = userRepository.save(User.builder()
-                                .Userid(file.getOriginalFilename())
+                                .userId(file.getOriginalFilename())
 //                        .email(file.getOriginalFilename())
-                        .ProfileImageLocation(filepath).build());
+                        .profileImageLocation(filepath).build());
 
         file.transferTo(new File(filepath));
 
         if(userData != null){
-            return "image file uploaded successfully:" + filepath;
+            return "Profile image file uploaded successfully:" + filepath;
         }
         return null;
     }
 
-//    public byte[] downloadImageFromFileSystem(String userId) throws IOException{
-//        Optional<User> userData = userRepository.findByUserId(userId);
-////        Optional<User> userData = userRepository.findById(userId);
-////        String filePath = userData.get().getProfileImageLocation();
+    public byte[] downloadProfileImageFromFileSystem(String filename) throws IOException{
+        Optional<User> userData = userRepository.findByUserId(filename);
+//        Optional<User> userData = userRepository.findById(userId);
 //        String filePath = userData.get().getProfileImageLocation();
-//        byte[] images = Files.readAllBytes(new File(filePath).toPath());
-//        return images;
-//    }
+        String filePath = userData.get().getProfileImageLocation();
+        byte[] ProfileImages = Files.readAllBytes(new File(filePath).toPath());
+//        System.out.println("ashse");
+        return ProfileImages;
+
+    }
+
+    public String uploadSignImageToFileSystem(MultipartFile file) throws IOException{
+
+        String filepath=FOLDER_PATH+file.getOriginalFilename();
+
+        User userData2 = userRepository.save(User.builder()
+                .userId(file.getOriginalFilename())
+//                        .email(file.getOriginalFilename())
+                .signatureImageLocation(filepath).build());
+
+        file.transferTo(new File(filepath));
+
+        if(userData2 != null){
+            return "Signature image file uploaded successfully:" + filepath;
+        }
+        return null;
+    }
+
+    public byte[] downloadSignImageFromFileSystem(String filename) throws IOException{
+        Optional<User> userData2 = userRepository2.findByUserId(filename);
+//        Optional<User> userData = userRepository.findById(userId);
+//        String filePath = userData.get().getProfileImageLocation();
+        String filePath = userData2.get().getSignatureImageLocation();
+        byte[] SignatureImages = Files.readAllBytes(new File(filePath).toPath());
+        return SignatureImages;
+    }
 
 
 }

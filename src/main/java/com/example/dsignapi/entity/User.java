@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
-@Getter
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,28 +14,36 @@ import javax.persistence.*;
 @Builder
 public class User {
 
-    public String getUserid() {
-        return Userid;
+
+
+    @Id
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @Column(name = "userId",unique = true)
+    private String userId;
+
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        Userid = userid;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getFirstname() {
-        return Firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        Firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return Lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        Lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -47,68 +55,64 @@ public class User {
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public int getPhoneNo() {
-        return PhoneNo;
+        return phoneNo;
     }
 
     public void setPhoneNo(int phoneNo) {
-        PhoneNo = phoneNo;
+        this.phoneNo = phoneNo;
     }
 
     public String getOrganization() {
-        return Organization;
+        return organization;
     }
 
     public void setOrganization(String organization) {
-        Organization = organization;
+        this.organization = organization;
     }
 
     public String getDesignation() {
-        return Designation;
+        return designation;
     }
 
     public void setDesignation(String designation) {
-        Designation = designation;
+        this.designation = designation;
     }
 
     public String getProfileImageLocation() {
-        return ProfileImageLocation;
+        return profileImageLocation;
     }
 
     public void setProfileImageLocation(String profileImageLocation) {
-        ProfileImageLocation = profileImageLocation;
+        this.profileImageLocation = profileImageLocation;
     }
 
     public String getSignatureImageLocation() {
-        return SignatureImageLocation;
+        return signatureImageLocation;
     }
 
     public void setSignatureImageLocation(String signatureImageLocation) {
-        SignatureImageLocation = signatureImageLocation;
+        this.signatureImageLocation = signatureImageLocation;
     }
 
-    @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    private String Userid;
-    private String Firstname;
-    private String Lastname;
+    private String firstName;
+    private String lastName;
     @Column(name = "email",unique = true)
     private String email;
-    private String Password;
-    private int PhoneNo;
-    private String Organization;
-    private String Designation;
+    private String password;
+    private int phoneNo;
+    private String organization;
+    private String designation;
     //    private String PdfLocation;
-    private String ProfileImageLocation;
-    private String SignatureImageLocation;
+    private String profileImageLocation;
+    private String signatureImageLocation;
 
 
 }

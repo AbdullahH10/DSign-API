@@ -10,7 +10,7 @@ import lombok.Setter;
 public class UserImageUpdateDTO {
 //    private String id;
 
-    private int Userid;
+    private String Userid;
     private String ProfileImageLocation;
     private String SignatureImageLocation;
 

@@ -29,11 +29,15 @@ public class FileDataController {
 
         @GetMapping("/fileSystem/{filename}")
         public ResponseEntity<?> downloadPdfFromFileSystem(@PathVariable String filename) throws IOException{
-            byte[] imageData=service2.downloadPdfFromFileSystem(filename);
+            byte[] fileData=service2.downloadPdfFromFileSystem(filename);
             return ResponseEntity.status(HttpStatus.OK)
                     .contentType(MediaType.APPLICATION_PDF)
-                    .body(imageData);
+                    .body(fileData);
         }
+
+
+
+
     }
 
 
