@@ -93,7 +93,7 @@ public class UserController {
     }
 
     @PutMapping("/update/{userId}")
-    public User updateUser(@PathVariable("userId") String userId,@RequestBody User user){
+    public User updateUser(@PathVariable("userId") String userId,@ModelAttribute  User user){
         return service.updateUser(userId,user);
     }
     @DeleteMapping("/delete/{userId}")
