@@ -43,7 +43,7 @@ public class WorkFlowController {
         return workFlowService.getWorkFlowByWid(userId);
     }
 
-    @DeleteMapping("/delete/{Wid}")
+    @DeleteMapping("/deleteWorkFlow/{Wid}")
     public String deleteWorkFlow(@PathVariable int Wid){
         return workFlowService.deleteWorkFlow(Wid);
     }

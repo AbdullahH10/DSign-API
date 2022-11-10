@@ -12,99 +12,94 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-//@RequestMapping("/image")
+
 @RestController
 public class UserController {
     @Autowired
-    private UserService service;
+    private UserService userService;
 
     @Autowired
-    private StorageService service2;
+    private StorageService storageService;
 
-    @PostMapping("/addUser")
-    public User addUser(@RequestBody User user){
-        return service.saveUser(user);
+//    @PostMapping("/addUser")
+//    public User addUser(@RequestBody User user){
+//        return service.saveUser(user);
+//    }
+
+
+
+// ->> Adding profile Image and Signature Image with multipart form data(JSON) DATE:9/11/2022 <<-
+    @PostMapping(value="/addUser",consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE})
+    public User addUser(@RequestPart("user") String userId, @RequestPart ("file") List<MultipartFile> file){
+        return userService.addUser(userId,file);
     }
+    @PutMapping(value="/updateUser",consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE})
+    public User updateUser(@RequestPart("user") String user, @RequestParam ("file") List<MultipartFile> file){
+        return userService.updateUser(user,file);
+    }
+//    @DeleteMapping(value="/deleteUser",consumes = {MediaType.APPLICATION_JSON_VALUE,MediaType.MULTIPART_FORM_DATA_VALUE})
+//    public User updateUser(@RequestPart("user") String user, @RequestParam ("file") List<MultipartFile> file){
+//        return userService.deleteByUserId(user,file);
+
+    // ->> Adding profile Image and Signature Image with multipart form data(JSON) <<-
+
     @PostMapping("/login")
     public User addUserByEmail(@RequestBody LoginDTO dto){
-        return service.loginUser(dto);
-    }
-
-//    @PostMapping("/image/profileImage")
-//    public Optional<User> addProfileImage(@RequestBody UserImageUpdateDTO dto){
-//        return service.updateUserImage(dto);
-//    }
-//
-//    @PostMapping("image/signatureImage")
-//    public Optional<User> addSignatureImage(@RequestBody UserImageUpdateDTO dto){
-//        return service.updateUserImage(dto);
-//    }
-
-    @PostMapping("/user/profileImage")
-    public ResponseEntity<?> uploadProfileImage(@RequestParam("user") MultipartFile file) throws IOException {
-        String uploadImage = service2.uploadProfileImageToFileSystem(file);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(uploadImage);
-    }
-    @PostMapping("/user/signatureImage")
-    public ResponseEntity<?> uploadSignatureImage(@RequestParam("user") MultipartFile file) throws IOException {
-        String uploadImage = service2.uploadSignImageToFileSystem(file);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(uploadImage);
-    }
-
-    @GetMapping("/user/profileImageLocation/{UserId}")
-    public ResponseEntity<?> downloadProfileImage(@PathVariable String UserId) throws IOException{
-        byte[] imageData=service2.downloadProfileImageFromFileSystem(UserId);
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.valueOf("image/jpg"))
-                .body(imageData);
-    }
-
-    @GetMapping("/user/signatureImageLocation/{UserId}")
-    public ResponseEntity<?> downloadSignatureImage(@PathVariable String UserId) throws IOException{
-        byte[] imageDataTwo=service2.downloadSignImageFromFileSystem(UserId);
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.valueOf("image/jpg"))
-                .body(imageDataTwo);
+        return userService.loginUser(dto);
     }
 
     @GetMapping("/users")
     public List<User> findAllUsers(){
-        return service.getUsers();
+        return userService.getUsers();
    }
 
     @GetMapping("/user/{userId}")
     public User findUserById(@PathVariable String userId){
-        return service.getUserById(userId);
+        return userService.getUserById(userId);
     }
-
-    @GetMapping("/userProfileImage/{userId}")
-    public User findUseByProfileImage(@PathVariable String userId){
-        return service.getUserById(userId);
-    }
-
-    @GetMapping("/userSignatureImage/{userId}")
-    public User findUseBySignatureImage(@PathVariable String userId){
-        return service.getUserById(userId);
-    }
-
-    @PutMapping("/update/{userId}")
-    public User updateUser(@PathVariable("userId") String userId,@ModelAttribute  User user){
-        return service.updateUser(userId,user);
-    }
+    @Transactional
     @DeleteMapping("/delete/{userId}")
     public String deleteUser(@PathVariable String userId){
-        return service.deleteByUserId(userId);
+        return userService.deleteById(userId);
     }
 
+    @Transactional
     @DeleteMapping("/deleteAll")
     public User deleteAllUsers(User user){
-        return service.deleteAll();
+        return userService.deleteAll();
     }
 
 
-}
+//    @GetMapping("/userProfileImage/{userId}")
+//    public User findUseByProfileImage(@PathVariable String userId){
+//        return userService.getUserById(userId);
+//    }
+//
+//    @GetMapping("/userSignatureImage/{userId}")
+//    public User findUseBySignatureImage(@PathVariable String userId){
+//        return userService.getUserById(userId);
+
+//@GetMapping("/user/profileImageLocation/{UserId}")
+//public ResponseEntity<?> downloadProfileImage(@PathVariable String UserId) throws IOException{
+//    byte[] imageData=storageService.downloadProfileImageFromFileSystem(UserId);
+//    return ResponseEntity.status(HttpStatus.OK)
+//            .contentType(MediaType.valueOf("image/jpg"))
+//            .body(imageData);
+//}
+//
+//    @GetMapping("/user/signatureImageLocation/{UserId}")
+//    public ResponseEntity<?> downloadSignatureImage(@PathVariable String UserId) throws IOException{
+//        byte[] imageDataTwo=storageService.downloadSignImageFromFileSystem(UserId);
+//        return ResponseEntity.status(HttpStatus.OK)
+//                .contentType(MediaType.valueOf("image/jpg"))
+//                .body(imageDataTwo);
+//    }
+
+    }
+
+
+
