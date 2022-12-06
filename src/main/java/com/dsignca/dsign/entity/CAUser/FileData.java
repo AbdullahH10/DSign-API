@@ -19,6 +19,22 @@ public class FileData {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int wid;
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getPdfLocation() {
+        return pdfLocation;
+    }
+
+    public void setPdfLocation(String pdfLocation) {
+        this.pdfLocation = pdfLocation;
+    }
+
     private String fileName;
     private String pdfLocation;
 }

@@ -35,7 +35,7 @@ public class StorageService {
     }
     public byte[] downloadImageFromFileSystem(String fileName) throws IOException {
         Optional<FileData> fileData = fileRepository.findByFileName(fileName);
-        String filePath=fileData.get().getFileName();
+        String filePath=fileData.get().getPdfLocation() ;
         byte[] images = Files.readAllBytes(new File(filePath).toPath());
         return images;
     }

@@ -18,7 +18,7 @@ public class UserController {
         return service.saveUser(user);
     }
 
-    @PostMapping
+    @PostMapping("login")
     public User addUserByEmail(@RequestBody LoginDTO dto){
         return service.LoginUser(dto);
     }
@@ -42,7 +42,7 @@ public class UserController {
         return service.getUserByName(firstName);
     }
 
-    @PutMapping("/update/{userId}")
+    @PutMapping("/update")
     public User updateUser(@RequestBody User user){
         return service.upadateUser(user);
     }

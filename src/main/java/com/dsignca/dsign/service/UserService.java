@@ -38,7 +38,7 @@ public class UserService {
     }
 
     public User upadateUser(User user){
-        User existinguser = repository.findById(user.getUserId()).orElse(null);
+        User existinguser = (User) repository.findByUserId(user.getUserId()).orElse(null);
         existinguser.setEmail(user.getEmail());
         existinguser.setPassword(user.getPassword());
         existinguser.setFirstName(user.getFirstName());
@@ -47,8 +47,8 @@ public class UserService {
         existinguser.setOrganization(user.getOrganization());
         existinguser.setDesignation(user.getDesignation());
 //        existinguser.setPdfLocation(user.getPdfLocation());
-        existinguser.setProfileImageLocation(user.getProfileImageLocation());
-        existinguser.setSignImageLocation(user.getSignImageLocation());
+//        existinguser.setProfileImageLocation(user.getProfileImageLocation());
+//        existinguser.setSignImageLocation(user.getSignImageLocation());
         return repository.save(existinguser);
     }
 
