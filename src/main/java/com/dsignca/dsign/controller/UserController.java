@@ -13,12 +13,12 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    @PostMapping("/addUser")
+    @PostMapping("/users")
     public User addUser(@RequestBody User user){
         return service.saveUser(user);
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public User addUserByEmail(@RequestBody LoginDTO dto){
         return service.LoginUser(dto);
     }
@@ -27,27 +27,27 @@ public class UserController {
 //    public List<User> AddUsers(@RequestBody List<User> users){
 //        return service.saveUsers(users);
 //    }
-    @GetMapping("/Users")
+    @GetMapping("/users")
     public List <User> findAllUsers(){
         return service.getUsers();
     }
 
-    @GetMapping("/usersById/{userId}")
+    @GetMapping("/users/{userId}")
     public User findById(@PathVariable int userId){
         return service.getUserById(userId);
     }
 
-    @GetMapping("/usersByName/{firstName}")
-    public User findByName(@PathVariable String firstName){
-        return service.getUserByName(firstName);
-    }
+//    @GetMapping("/usersByName/{firstName}")
+//    public User findByName(@PathVariable String firstName){
+//        return service.getUserByName(firstName);
+//    }
 
-    @PutMapping("/update")
+    @PutMapping("/users")
     public User updateUser(@RequestBody User user){
         return service.upadateUser(user);
     }
 
-    @DeleteMapping("/delete/{userId}")
+    @DeleteMapping("/users/{userId}")
     public String deleteUser(@PathVariable int userId){
         return service.deleteUser(userId);
     }
