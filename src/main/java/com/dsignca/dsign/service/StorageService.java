@@ -18,7 +18,7 @@ import java.util.Optional;
 public class StorageService {
     @Autowired
     private FileRepository fileRepository;
-    private final String FOLDER_PATH="C:/Users/Asus/IdeaProjects/MyWebApp/DSign-API/src/main/resources/static/Images";
+    private final String FOLDER_PATH="/home/abdullah/Documents/";
 
     public String uploadImageToFileSystem(MultipartFile file) throws IOException{
         String filePath=FOLDER_PATH+file.getOriginalFilename();

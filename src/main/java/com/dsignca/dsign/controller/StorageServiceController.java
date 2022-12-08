@@ -21,6 +21,7 @@ import java.io.IOException;
 //@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @RestController
 @RequestMapping("/image")
+@CrossOrigin("http://localhost:4200")
 public class StorageServiceController {
 
 
