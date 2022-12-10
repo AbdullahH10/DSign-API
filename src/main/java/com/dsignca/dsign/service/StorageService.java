@@ -12,13 +12,15 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class StorageService {
     @Autowired
     private FileRepository fileRepository;
-    private final String FOLDER_PATH="C:/Users/Asus/IdeaProjects/MyWebApp/DSign-API/src/main/resources/static/Images";
+    private final String FOLDER_PATH="C:/Users/Asus/IdeaProjects/MyWebApp/DSign-API/src/main/resources/static/Images/";
 
     public String uploadImageToFileSystem(MultipartFile file) throws IOException{
         String filePath=FOLDER_PATH+file.getOriginalFilename();
@@ -33,10 +35,16 @@ public class StorageService {
         }
         return null;
     }
+
+    public List<FileData> getAllFiles() {
+        return fileRepository.findAll();
+   }
     public byte[] downloadImageFromFileSystem(String fileName) throws IOException {
         Optional<FileData> fileData = fileRepository.findByFileName(fileName);
         String filePath=fileData.get().getPdfLocation() ;
         byte[] images = Files.readAllBytes(new File(filePath).toPath());
         return images;
     }
+
+
 }

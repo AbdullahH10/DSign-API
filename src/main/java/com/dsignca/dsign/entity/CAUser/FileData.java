@@ -18,6 +18,23 @@ public class FileData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int wid;
+    private String fileName;
+    private String pdfLocation;
+    private byte[] data;
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+    public FileData(String fileName, String pdfLocation, byte[] data) {
+        this.fileName = fileName;
+        this.pdfLocation = pdfLocation;
+        this.data = data;
+    }
 
     public String getFileName() {
         return fileName;
@@ -35,6 +52,4 @@ public class FileData {
         this.pdfLocation = pdfLocation;
     }
 
-    private String fileName;
-    private String pdfLocation;
 }
