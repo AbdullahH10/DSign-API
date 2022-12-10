@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @SuppressWarnings("S")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
     @Autowired
     private UserService service;
@@ -18,7 +19,7 @@ public class UserController {
         return service.saveUser(user);
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public User addUserByEmail(@RequestBody LoginDTO dto){
         return service.LoginUser(dto);
     }
@@ -37,10 +38,17 @@ public class UserController {
         return service.getUserById(userId);
     }
 
+<<<<<<< HEAD
     @GetMapping("/users/name/{firstName}")
     public User findByName(@PathVariable String firstName){
         return service.getUserByName(firstName);
     }
+=======
+//    @GetMapping("/usersByName/{firstName}")
+//    public User findByName(@PathVariable String firstName){
+//        return service.getUserByName(firstName);
+//    }
+>>>>>>> 3c253611325b7c57535c00d1bc305b8a52a285f7
 
     @PutMapping("/users")
     public User updateUser(@RequestBody User user){

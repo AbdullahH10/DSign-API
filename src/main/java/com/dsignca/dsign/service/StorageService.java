@@ -20,7 +20,11 @@ import java.util.stream.Stream;
 public class StorageService {
     @Autowired
     private FileRepository fileRepository;
+<<<<<<< HEAD
     private final String FOLDER_PATH="C:/Users/Asus/IdeaProjects/MyWebApp/DSign-API/src/main/resources/static/Images/";
+=======
+    private final String FOLDER_PATH="/home/abdullah/Documents/";
+>>>>>>> 3c253611325b7c57535c00d1bc305b8a52a285f7
 
     public String uploadImageToFileSystem(MultipartFile file) throws IOException{
         String filePath=FOLDER_PATH+file.getOriginalFilename();

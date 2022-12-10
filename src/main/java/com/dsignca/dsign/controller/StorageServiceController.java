@@ -19,6 +19,7 @@ import java.util.stream.Stream;
 //@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @RestController
 @RequestMapping("/image")
+@CrossOrigin("http://localhost:4200")
 public class StorageServiceController {
 
 
